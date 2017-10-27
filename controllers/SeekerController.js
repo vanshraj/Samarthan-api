@@ -39,7 +39,7 @@ module.exports = {
 				}
 				callback(null, seeker);
 			});
-		}
+		});
 	},
 
 	//update resource by id
