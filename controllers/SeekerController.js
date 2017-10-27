@@ -62,5 +62,16 @@ module.exports = {
 			}
 			callback(null, null);
 		});
+	},
+
+	comparePassword: function( candidatePassword, hash, callback){
+		if(hash){
+			var isMatch = (candidatePassword==hash);
+			callback(null, isMatch)
+		}
+		else{
+			callback(null, false);
+			return;
+		}	
 	}
 }
