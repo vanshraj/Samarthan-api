@@ -26,12 +26,12 @@ module.exports = {
 
 	//create new resource
 	create: function(params, callback) {
-		DisabilityController.find( { type: params.disability }, function(err, result){
+		DisabilityController.find( { type: params.disability }, function(err, results){
 			if(err){
 				callback(err,null);
 				return;
 			}
-			params.disability = result._id;
+			params.disability = results[0]._id;
 			Seeker.create(params, function(err, seeker){
 				if(err){
 					callback(err, null);
