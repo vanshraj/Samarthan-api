@@ -9,7 +9,7 @@ var JobSchema = mongoose.Schema({
 	jobDescription: { type: String },
 	salaryRange: { min:{ type:Number}, max:{ type:Number } },
 	perks:{ type: String },
-	disability:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Disability'} ],
+	disability:{ type: mongoose.Schema.Types.ObjectId, ref: 'Disability'},
 	employer:{ type: mongoose.Schema.Types.ObjectId, ref: 'Employer'}
 });
 

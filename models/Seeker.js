@@ -6,7 +6,7 @@ var SeekerSchema = mongoose.Schema({
 	password: { type: String },
 	email: { type: String, index:true },
 	name: { type: String },
-	disability:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Disability'} ],
+	disability:{ type: mongoose.Schema.Types.ObjectId, ref: 'Disability'},
 	phone: { type: String }
 });
 
