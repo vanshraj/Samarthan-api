@@ -1,4 +1,5 @@
 var Seeker = require('../models/Seeker.js');
+var DisabilityController = require('./DisabilityController');
 
 module.exports = {
 	//find all resource with query
@@ -25,13 +26,20 @@ module.exports = {
 
 	//create new resource
 	create: function(params, callback) {
-		Seeker.create(params, function(err, seeker){
+		DisabilityController.find( { type: params.disability }, function(err, result){
 			if(err){
-				callback(err, null);
+				callback(err,null);
 				return;
 			}
-			callback(null, seeker);
-		});
+			params.disability = result._id;
+			Seeker.create(params, function(err, seeker){
+				if(err){
+					callback(err, null);
+					return;
+				}
+				callback(null, seeker);
+			});
+		}
 	},
 
 	//update resource by id
