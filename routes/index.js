@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var employerPassport = require('../config/employerPassport');
 var seekerPassport = require('../config/seekerPassport');
+var Employer = require('../controllers/EmployerController');
+var Seeker = require('../controllers/SeekerController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -78,4 +80,35 @@ router.get('/seeker/logout',function(req,res){
 		});
 	});
 });
+
+router.post('/employer/invite', function(req, res){
+	Employer.invite(req.body, function(err, employer){
+		if(err){
+			res.json({
+				confirmation: 'fail',
+				message: 'error'+ err
+			});
+		}
+		res.json({
+			confirmation: 'success',
+			result: employer
+		});
+	});
+});
+
+router.post('/seeker/apply', function(req, res){
+	Seeker.apply(req.body, function(err, seeker){
+		if(err){
+			res.json({
+				confirmation: 'fail',
+				message: 'error'+ err
+			});
+		}
+		res.json({
+			confirmation: 'success',
+			result: seeker
+		});
+	});
+});
+
 module.exports = router;

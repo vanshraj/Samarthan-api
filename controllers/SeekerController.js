@@ -1,4 +1,5 @@
 var Seeker = require('../models/Seeker.js');
+var Employer = require('../models/Employer.js');
 var DisabilityController = require('./DisabilityController');
 
 module.exports = {
@@ -73,5 +74,30 @@ module.exports = {
 			callback(null, false);
 			return;
 		}	
+	},
+
+	apply: function(params, callback){
+		Seeker.find({'email':params.email}, function(err, seekers){
+			if(err){
+				callback(err, null);
+			}
+			var seeker = seekers[0];
+			seeker.apply.push(params.jobId);
+			seeker.save(function(err, seeker){
+				Employer.findById(params.employerId, function(err, employer){
+					if(err){
+						callback(err, null);
+					}
+					var applyObj = {
+						job: params.jobId,
+						seeker: seeker._id
+					}
+					employer.apply.push(applyObj);
+					employer.save(function(err, employer){
+						callback(err, {employer:employer, seeker:seeker});
+					});
+				});
+			});
+		});
 	}
 }

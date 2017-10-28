@@ -1,4 +1,5 @@
 var Employer = require('../models/Employer.js');
+var Seeker = require('../models/Seeker.js');
 
 module.exports = {
 	//find all resource with query
@@ -74,6 +75,31 @@ module.exports = {
 				return;
 			}
 			callback(null, employer);
+		});
+	},
+
+	invite: function(params, callback){
+		Employer.find({'email':params.email}, function(err, employers){
+			if(err){
+				callback(err, null);
+			}
+			var employer = employers[0];
+			var inviteObj = {
+				job: params.jobId,
+				seeker: params.seekerId
+			}
+			employer.invites.push(inviteObj);
+			employer.save(function(err, employer){
+				Seeker.findById(params.seekerId, function(err, seeker){
+					if(err){
+						callback(err, null);
+					}
+					seeker.invites.push(params.jobId);
+					seeker.save(function(err, seeker){
+						callback(err, {employer:employer, seeker:seeker});
+					});
+				});
+			});
 		});
 	}
 }
