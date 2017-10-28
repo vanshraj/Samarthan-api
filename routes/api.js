@@ -20,7 +20,7 @@ router.get('/:resource',function(req,res,next){
 		if(err){
 			res.json({
 				confirmation: 'fail',
-				message: err
+				message: 'error'+err
 			});
 			return;
 		}
@@ -49,7 +49,7 @@ router.post('/:resource',function(req,res,next){
 		if(err){
 			res.json({
 				confirmation: 'fail',
-				message: err
+				message: 'error'+err
 			});
 			return;
 		}
@@ -109,7 +109,7 @@ router.put('/:resource/:id', function(req,res,next){
 		if(err){
 			res.json({
 				confirmation: 'fail',
-				message: err
+				message: 'error'+err
 			});
 			return;
 		}
