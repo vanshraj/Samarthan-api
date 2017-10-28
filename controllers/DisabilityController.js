@@ -24,7 +24,7 @@ module.exports = {
 	},
 
 	//create new resource
-	create: function(params, callback) {
+	create: function(params, req , callback) {
 		Disability.create(params, function(err, disability){
 			if(err){
 				callback(err, null);

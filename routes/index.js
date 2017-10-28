@@ -18,8 +18,12 @@ router.post('/employer/login', function(req, res, next){
 		}
 		else{
 			req.login(employer, function(err){	
-				console.log('Authentication Successful');
-				res.json(info)
+				if(err){
+					res.status(400).json({'confirmation':'fail', 'message':'error'+err})
+				}else{
+					console.log('Authentication Successful');
+					res.json(info)	
+				}
 			});
 		}
 	})(req, res, next);
@@ -29,7 +33,11 @@ router.post('/employer/login', function(req, res, next){
 //logout route
 router.get('/employer/logout',function(req,res){
 	req.session.destroy(function (err) {
-		res.redirect(redirectTo);
+		if(err){
+			res.status(400).json({'confirmation':'fail', 'message':'error'+err})
+		}else{
+			res.json({ 'confirmation':'success', 'message':'Logged out.'})
+		}
 	});
 });
 
@@ -43,8 +51,12 @@ router.post('/seeker/login', function(req, res, next){
 		}
 		else{
 			req.login(seeker, function(err){	
-				console.log('Authentication Successful');
-				res.json(info)
+				if(err){
+					res.status(400).json({'confirmation':'fail', 'message':'error'+err})
+				}else{
+					console.log('Authentication Successful');
+					res.json(info)	
+				}
 			});
 		}
 	})(req, res, next);

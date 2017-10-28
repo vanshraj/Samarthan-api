@@ -24,7 +24,7 @@ module.exports = {
 	},
 
 	//create new resource
-	create: function(params, callback) {
+	create: function(params, req, callback) {
 		Employer.create(params, function(err, employer){
 			if(err){
 				callback(err, null);
@@ -65,5 +65,15 @@ module.exports = {
 			callback(null, false);
 			return;
 		}	
+	},
+
+	addJob: function( jobId, empId, callback){
+		Employer.findByIdAndUpdate(empId,{ $push:{ joblist:jobId} } ,function(err, employer){
+			if(err){
+				callback(err, null);
+				return;
+			}
+			callback(null, employer);
+		});
 	}
 }

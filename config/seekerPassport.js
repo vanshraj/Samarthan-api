@@ -1,16 +1,14 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var controllers = require('../controllers/SeekerController');
+var Seeker = require('../controllers/SeekerController');
 
 //passport middleware
-passport.serializeUser(function(seeker, done) {
-	done(null, seeker.id);
+passport.serializeUser(function(user, done) {
+  done(null, user);
 });
 
-passport.deserializeUser(function(id, done) {
-	Seeker.findById(id, function (err, seeker) {
-		done(err, seeker);
-	});
+passport.deserializeUser(function(user, done) {
+  done(null, user);
 });
 
 //passport local strategy

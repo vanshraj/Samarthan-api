@@ -3,14 +3,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var Employer = require('../controllers/EmployerController');
 
 //passport middleware
-passport.serializeUser(function(Employer, done) {
-	done(null, Employer.id);
+passport.serializeUser(function(user, done) {
+  done(null, user);
 });
 
-passport.deserializeUser(function(id, done) {
-	Employer.findById(id, function (err, Employer) {
-		done(err, Employer);
-	});
+passport.deserializeUser(function(user, done) {
+  done(null, user);
 });
 
 //passport local strategy

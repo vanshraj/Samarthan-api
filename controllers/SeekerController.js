@@ -25,7 +25,7 @@ module.exports = {
 	},
 
 	//create new resource
-	create: function(params, callback) {
+	create: function(params, req, callback) {
 		DisabilityController.find( { type: params.disability }, function(err, results){
 			if(err){
 				callback(err,null);

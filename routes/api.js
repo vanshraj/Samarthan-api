@@ -45,7 +45,7 @@ router.post('/:resource',function(req,res,next){
 		return;
 	}
 
-	controller.create(req.body, function(err,result){
+	controller.create(req.body, req , function(err,result){
 		if(err){
 			res.json({
 				confirmation: 'fail',
